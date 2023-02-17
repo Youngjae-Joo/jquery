@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- jquery -->
+    <script src="js/jquery-3.6.3.min.js"></script>
+</head>
+<body>
+
+    <button id="btn">에이젝스</button>
+
+    
+    <script>
+        $("#btn").click(function(){
+            //ajax
+            $.ajax({
+                url:"http://localhost:8383/getAjax",//요청주소
+                type:"Post",//요청타입
+                data:JSON.stringify({num:20,id:"abs123",name:"앱솔"}), //보낼데이터
+                contentType:"application/json", //보내는 데이터에 대한 타입(필수)
+                dataType:"json",//json,xml,text,html,...등등(받는데이터에대한 타입)(옵션)
+                success:function(result){ //성공시 콜백
+                    console.log(result);
+                },
+                error:function(err){//실패시 콜백
+                    console.log(err);
+                }
+            })
+
+        })
+
+    </script>
+
+    <hr/>
+
+    <input type="text" name="topic"/>
+    <button>get방식</button>
+
+    <script>
+        //버튼을 클릭하면 get방식으로 ajax처리를 합니다.
+        //getAjax2/토픽값 요청처리합니다.
+        //응답데이터는 "success"
+        $("input[name='topic']").next().click(()=>{
+            $.ajax({
+                url:"http://localhost:8383/getAjax2/"+$("input[name='topic']").val(),
+                type:"get",
+                contentType:"text/plain",
+                dataType:"text",
+                success:(result)=>{console.log(result)},
+                error:(err)=>{console.log(err)}
+            });
+        });
+    </script>
+
+</body>
+</html>
